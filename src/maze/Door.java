@@ -11,19 +11,35 @@ import java.util.Scanner;
  */
 public class Door {
   
-  /** When the user answers a question, it is true (correct answer) or false (wrong answer).
-   * Used to help myDoorHasLocked figure out when to close the door. 
-   */
-  private boolean myAnswer;
+  /** The door status; false = closed & true = open. */
+  public boolean myDoorStatus;
   
   /** The door lock; false = open & true = closed. */
-  private boolean myDoorHasLocked;
+  public boolean myDoorLock;
+  
+  private Question q;
+  
+  private String doorView;
   
   /**
-   * Instantiates a new door constructor. All doors default open (false).
+   * Gets the door status after answering questions.
+   *
+   * @return the door status
    */
+  
   public Door() {
-    this.myDoorHasLocked = false;
+	  q = new Question();
+	  doorView = "| |";
+  }
+  
+  public Door(boolean locked) {
+	  q = new Question();
+	  myDoorLock = locked;
+	  doorView = "|X|";
+  }
+  
+  public boolean getDoorStatus() {
+    return myDoorStatus;
   }
   
   /**
@@ -32,28 +48,29 @@ public class Door {
    * @return the door lock
    */
   public boolean getDoorLock() {
-    return myDoorHasLocked;
+    return myDoorLock;
   }
   
   public void openDoorQuestion() {
     Scanner scnr = new Scanner(System.in);
-    Question q = new Question();
     q.questionPromptMC(scnr);
     
-    myAnswer = q.getAnswer();
+    myDoorStatus = q.getAnswer();
     
   }
   
-  public void doorOpenOrLocked() { //myDoorHasLocked setter essentially
-    if (myAnswer == true) {
-//      System.out.println("Your answer was Correct!");
-      System.out.println("Door is opened! Continue to next room!");
-      myDoorHasLocked = false;
+  public void doorOpenOrLocked() {
+    if (getDoorStatus() == true) {
+      //System.out.println("Door is open!");
+      myDoorLock = false;
     } else {
-//      System.out.println("Your answer was Wrong!");
-      System.out.println("Door is locked permentatly; try a different door!");
-      myDoorHasLocked = true;
+      //System.out.println("Door is closed!");
+      myDoorLock = true;
     }
+  }
+  
+  public Question getQuestion() {
+	  return q;
   }
   
 }

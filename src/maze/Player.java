@@ -3,6 +3,7 @@
  */
 package maze;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -12,9 +13,9 @@ import java.util.Scanner;
 public class Player {
   //https://www.geeksforgeeks.org/check-destination-reachable-source-two-movements-allowed/
   
-  public int myMoveX_axis = 1;
+  private int myMoveX_axis = 1;
   
-  public int myMoveY_axis = 1;
+  private int myMoveY_axis = 1;
   
   public final Scanner SCNR = new Scanner(System.in);
   
@@ -28,13 +29,38 @@ public class Player {
   
   public int playerMove() {
     boolean done = false;
-    int moveMade = 0;
+    int legalMove = -1;
+    String playerInput = "";
+    String[] moves = {"up", "right", "down", "left"};
     
-    while (done == false) {
+    while (legalMove == -1) {
       System.out.println("Move: up, right, down, or left");
-      String playerInput = SCNR.next();
       
-      if (playerInput.equalsIgnoreCase("up")) {
+      playerInput = SCNR.next();
+      
+      legalMove = Arrays.asList(moves).indexOf(playerInput.toLowerCase());
+    }
+      return legalMove;
+    
+  }
+  
+  public void moveSuccess(int move) {
+	  
+	  switch (move) {
+	  		case 0:
+			    myMoveY_axis--;
+	  			break;
+	  		case 1:
+	  			myMoveX_axis++;
+	  			break;
+	  		case 2:
+	  			myMoveY_axis++;
+	  			break;
+	  		case 3:
+	  			myMoveX_axis--;
+	  			break;
+	  }
+     /* if (playerInput.equalsIgnoreCase("up")) {
         System.out.println("Moved up door.");
         myMoveY_axis--;
         moveMade = myMoveY_axis;
@@ -63,10 +89,23 @@ public class Player {
       }
       System.out.println();
     }
-    
-    return moveMade;
+  } */
+  }
+  public void moveUp() {
+	  
   }
   
+  public void moveRight() {
+	  
+  }
+  
+  public void moveDown() {
+	  
+  }
+  
+  public void moveLeft() {
+	  
+  }
   
   public boolean directionReachable(int theRowPos, int theColPos, int theX, int theY) {
     boolean reachable = false;
