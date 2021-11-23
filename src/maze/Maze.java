@@ -53,7 +53,9 @@ public class Maze {
   
   public void startMaze() {
 	  
-	  while (!(my2DMaze[myRows][myColumns].ifPlayer.equals("[o]"))) {
+	  boolean stillPossible = true;
+	  
+	  while (!(my2DMaze[myRows][myColumns].ifPlayer.equals("[o]")) && stillPossible) {
 	      
 	      displayMaze();
 	      
@@ -63,27 +65,39 @@ public class Maze {
 	      
 	      if (!my2DMaze[p1.getY()][p1.getX()].doorLocked(move)) {
 	    	  
-	    	Door dr = my2DMaze[p1.getY()][p1.getX()].cardinalDoors[move];
+	    	  Door dr = my2DMaze[p1.getY()][p1.getX()].cardinalDoors[move];
 	      
-	      dr.openDoorQuestion();
-	      dr.doorOpenOrLocked();
+	    	  dr.openDoorQuestion();
+	    	  dr.doorOpenOrLocked();
+	    	  
+	    	  adjacentRoom(move).cardinalDoors[moveInverter(move)] = dr;
 	      
 	      System.out.println("Your answer was: " + dr.getDoorStatus());
 	      if (dr.getDoorLock() == true) {
 	        System.out.println("Door is locked permenantly; try a different door!");
+	        mazeSolver solver = new mazeSolver(my2DMaze);
+	        stillPossible = solver.solveMaze();
 	        displayLockout(move);
 	      } else {
 	        System.out.println("Door is opened! Continue to next room!");
 	       p1.moveSuccess(move);
 	      }
 	      my2DMaze[p1.getY()][p1.getX()].displayPlayerInRoom();
+	      
 	      }
+	      
 	      else {
 	    	  System.out.println("The path is blocked.");
 	    	  my2DMaze[p1.getY()][p1.getX()].displayPlayerInRoom();
 	      }
 	    }
-	  System.out.println("Reached end of the maze! Congrats");
+	  if (stillPossible) {
+		  System.out.println("Reached end of the maze! Congrats");
+	  }
+	  else {
+		  System.out.println("You have locked yourself from reaching the exit, good luck next time!");
+	  }
+	  
   }
   
   public boolean endMaze() {
@@ -122,6 +136,43 @@ public class Maze {
 	      System.out.println();
 	    }
 	    System.out.println();
+  }
+  
+  public int moveInverter(int move) {
+	  int inversion = 0;
+	  
+	  switch (move) {
+	  case 0: 
+		  inversion = 2;
+		  break;
+	  case 1:
+		  inversion = 3;
+		  break;
+	  case 2:
+		  inversion = 0;
+		  break;
+	  case 3:
+		  inversion = 1;
+	  }
+	  return inversion;
+  }
+  
+  public Room adjacentRoom(int move) {
+	  
+	  Room adjacent = null;
+	  
+	  switch (move) {
+	  case 0: 
+		 return my2DMaze[p1.getY()-1][p1.getX()];
+	  case 1:
+		  return my2DMaze[p1.getY()][p1.getX()+1];
+	  case 2:
+		  return my2DMaze[p1.getY()+1][p1.getX()];
+	  case 3:
+		  return my2DMaze[p1.getY()][p1.getX()-1];
+	  }
+	  
+	  return adjacent;
   }
   
 }
