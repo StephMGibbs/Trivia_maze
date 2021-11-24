@@ -5,6 +5,7 @@ package maze;
 
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.Stack;
 
 /**
  * @author stephg02
@@ -12,12 +13,23 @@ import java.util.Scanner;
  */
 public class Player {
   //https://www.geeksforgeeks.org/check-destination-reachable-source-two-movements-allowed/
+	 public final Scanner SCNR;
+	 private int myMoveX_axis;
+	 private int myMoveY_axis;
+	 Stack<Integer> backTracker;
   
-  private int myMoveX_axis = 1;
+	 public Player() {
+	
+		 myMoveX_axis = 1;
   
-  private int myMoveY_axis = 1;
+		 myMoveY_axis = 1;
   
-  public final Scanner SCNR = new Scanner(System.in);
+		 SCNR = new Scanner(System.in);
+  
+		 backTracker = new Stack<Integer>();
+		 
+		 backTracker.push(-1);
+	}
   
   public int getX() {
     return myMoveX_axis;
@@ -45,6 +57,8 @@ public class Player {
   }
   
   public void moveSuccess(int move) {
+	  
+	 backTracker.push(move);
 	  
 	  switch (move) {
 	  		case 0:
