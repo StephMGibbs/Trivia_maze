@@ -28,7 +28,7 @@ public class Player {
   }
   
   public int playerMove() {
-    boolean done = false;
+    //boolean done = false;
     int legalMove = -1;
     String playerInput = "";
     String[] moves = {"up", "right", "down", "left"};
