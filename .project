@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-<<<<<<< HEAD
-	<name>Trivia_maze</name>
-=======
 	<name>Trivia_Maze_Repo</name>
->>>>>>> adb6a9fbabeba494db35efa45ec9e8124d5995ff
 	<comment></comment>
 	<projects>
 	</projects>
 	<buildSpec>
-<<<<<<< HEAD
-	</buildSpec>
-	<natures>
-=======
 		<buildCommand>
 			<name>org.eclipse.jdt.core.javabuilder</name>
 			<arguments>
@@ -21,6 +13,5 @@
 	</buildSpec>
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
->>>>>>> adb6a9fbabeba494db35efa45ec9e8124d5995ff
 	</natures>
 </projectDescription>
