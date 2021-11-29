@@ -3,6 +3,7 @@
  */
 package maze;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.Stack;
@@ -11,8 +12,12 @@ import java.util.Stack;
  * @author stephg02
  *
  */
-public class Player {
-  //https://www.geeksforgeeks.org/check-destination-reachable-source-two-movements-allowed/
+public class Player implements Serializable {
+  
+	private static final long serialVersionUID = 1327082729610563013L;
+	
+	//https://www.geeksforgeeks.org/check-destination-reachable-source-two-movements-allowed/
+	
 	 public final Scanner SCNR;
 	 private int myMoveX_axis;
 	 private int myMoveY_axis;
@@ -43,10 +48,10 @@ public class Player {
     //boolean done = false;
     int legalMove = -1;
     String playerInput = "";
-    String[] moves = {"up", "right", "down", "left"};
+    String[] moves = {"up", "right", "down", "left", "save"};
     
     while (legalMove == -1) {
-      System.out.println("Move: up, right, down, or left");
+      System.out.println("Move: up, right, down, left, or save");
       
       playerInput = SCNR.next();
       

@@ -1,9 +1,12 @@
 package maze;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class mazeSolver {
+public class mazeSolver implements Serializable {
 	
+	private static final long serialVersionUID = 5757286137364807706L;
+
 	Room[][] my2DMaze;
 	
 	Player testPlayer;

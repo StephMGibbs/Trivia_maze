@@ -1,14 +1,20 @@
 package maze;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
 /**
  * @author stephg02
  *
  */
-public class Maze {
+public class Maze implements Serializable {
   
-  public int myRows = 3;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4086095372506263454L;
+
+public int myRows = 3;
   
   public int myColumns = 3;
   
@@ -63,7 +69,10 @@ public class Maze {
 	      
 	      int move = p1.playerMove();
 	      
-	      if (!my2DMaze[p1.getY()][p1.getX()].doorLocked(move)) {
+	      if (my2DMaze[p1.getY()][p1.getX()].cardinalDoors[move].getDoorStatus()) {
+	    	  p1.moveSuccess(move);
+	      }
+	      else if (!my2DMaze[p1.getY()][p1.getX()].doorLocked(move)) {
 	    	  
 	    	  Door dr = my2DMaze[p1.getY()][p1.getX()].cardinalDoors[move];
 	      
@@ -82,14 +91,14 @@ public class Maze {
 	        System.out.println("Door is opened! Continue to next room!");
 	       p1.moveSuccess(move);
 	      }
-	      my2DMaze[p1.getY()][p1.getX()].displayPlayerInRoom();
 	      
 	      }
 	      
 	      else {
-	    	  System.out.println("The path is blocked.");
-	    	  my2DMaze[p1.getY()][p1.getX()].displayPlayerInRoom();
+	    	  if (move < 4) System.out.println("The path is blocked.");
+	    	  if (move == 4) saveGame();
 	      }
+	      my2DMaze[p1.getY()][p1.getX()].displayPlayerInRoom();
 	    }
 	  if (stillPossible) {
 		  System.out.println("Reached end of the maze! Congrats");
@@ -173,6 +182,10 @@ public class Maze {
 	  }
 	  
 	  return adjacent;
+  }
+  
+  public void saveGame() {
+	  Serializer.serialize(this);
   }
   
 }

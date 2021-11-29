@@ -3,12 +3,16 @@
  */
 package maze;
 
+import java.io.Serializable;
+
 /**
  * @author stephg02
  *
  */
-public class Room {
-  /*
+public class Room implements Serializable {
+  
+	private static final long serialVersionUID = 469306839098404806L;
+/*
    - has door object (up to 4)
    - 4 doors if in middle, 3 doors if edge-side , 2 doors if corner or BUFFER
    - makes up maze locations in 2D array
@@ -48,6 +52,7 @@ public class Room {
   }
   
   public boolean doorLocked(int direction) {
-	  return cardinalDoors[direction].getDoorLock();
+	  if (direction < 4) return cardinalDoors[direction].getDoorLock();
+	  else return true;
   }
 }

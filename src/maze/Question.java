@@ -3,6 +3,7 @@
  */
 package maze;
 
+import java.io.Serializable;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -10,9 +11,11 @@ import java.util.Scanner;
  * @author stephg02
  *
  */
-public class Question {
+public class Question implements Serializable {
 	// Question source: https://icebreakerideas.com/video-game-trivia/
 
+	private static final long serialVersionUID = -2669902720185681207L;
+	
 	public boolean correctAnswer;
 
 	public boolean questionPromptMC(final Scanner theResponse) {

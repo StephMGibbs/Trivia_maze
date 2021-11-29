@@ -3,15 +3,18 @@
  */
 package maze;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
 /**
  * @author stephg02
  *
  */
-public class Door {
+public class Door implements Serializable {
   
-  /** The door status; false = closed & true = open. */
+private static final long serialVersionUID = 6579850749029358050L;
+
+/** The door status; false = closed & true = open. */
   public boolean myDoorStatus;
   
   /** The door lock; false = open & true = closed. */
