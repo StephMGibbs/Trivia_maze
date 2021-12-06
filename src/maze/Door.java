@@ -15,7 +15,7 @@ public class Door {
   public boolean myDoorStatus;
   
   /** The door lock; false = open & true = closed. */
-  public boolean myDoorLock;
+  public boolean isDoorLocked;
   
   private Question q;
   
@@ -34,7 +34,7 @@ public class Door {
   
   public Door(boolean locked) {
 	  q = new Question();
-	  myDoorLock = locked;
+	  isDoorLocked = locked;
 	  doorView = "|X|";
   }
   
@@ -48,7 +48,7 @@ public class Door {
    * @return the door lock
    */
   public boolean getDoorLock() {
-    return myDoorLock;
+    return isDoorLocked;
   }
   
   public void openDoorQuestion() {
@@ -62,10 +62,10 @@ public class Door {
   public void doorOpenOrLocked() {
     if (getDoorStatus() == true) {
       //System.out.println("Door is open!");
-      myDoorLock = false;
+      isDoorLocked = false;
     } else {
       //System.out.println("Door is closed!");
-      myDoorLock = true;
+      isDoorLocked = true;
     }
   }
   

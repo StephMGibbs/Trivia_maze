@@ -12,7 +12,6 @@ import java.util.Stack;
  *
  */
 public class Player {
-  //https://www.geeksforgeeks.org/check-destination-reachable-source-two-movements-allowed/
 	 public final Scanner SCNR;
 	 private int myMoveX_axis;
 	 private int myMoveY_axis;
@@ -61,50 +60,21 @@ public class Player {
 	 backTracker.push(move);
 	  
 	  switch (move) {
-	  		case 0:
+	  		case 0: //up
 			    myMoveY_axis--;
 	  			break;
-	  		case 1:
+	  		case 1: //right
 	  			myMoveX_axis++;
 	  			break;
-	  		case 2:
+	  		case 2: //down
 	  			myMoveY_axis++;
 	  			break;
-	  		case 3:
+	  		case 3: //left
 	  			myMoveX_axis--;
 	  			break;
 	  }
-     /* if (playerInput.equalsIgnoreCase("up")) {
-        System.out.println("Moved up door.");
-        myMoveY_axis--;
-        moveMade = myMoveY_axis;
-        done = true;
-        
-      } else if (playerInput.equalsIgnoreCase("right")) {
-        System.out.println("Moved to right door.");
-        myMoveX_axis++;
-        moveMade = myMoveX_axis;
-        done = true;
-        
-      } else if (playerInput.equalsIgnoreCase("down")) {
-        System.out.println("Moved down door.");
-        myMoveY_axis++;
-        moveMade = myMoveY_axis;
-        done = true;
-        
-      } else if (playerInput.equalsIgnoreCase("left")) {
-        System.out.println("Moved to left door.");
-        myMoveX_axis--;
-        moveMade = myMoveX_axis;
-        done = true;
-        
-      } else {
-        System.out.println("Not valid direction; re-enter direction.");
-      }
-      System.out.println();
-    }
-  } */
   }
+  
   public void moveUp() {
 	  
   }
