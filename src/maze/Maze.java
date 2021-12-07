@@ -16,12 +16,19 @@ public class Maze {
   
   private Player p1;
   
+  private Tom tomObj;
+  
+  private int randRow;
+  
+  private int randCol;
+  
   public int myRoomCount = 1;
   
   public final Scanner SCNR = new Scanner(System.in);
   
   public Maze() {
 	  p1 = new Player();
+	  tomObj = new Tom();
 	  my2DMaze = new Room[myRows + 2][myColumns + 2]; // makes 2D array w/ rows and columns
 	    // +2 for a buffer
 	  
@@ -45,6 +52,21 @@ public class Maze {
        for (int j = 1; j <= myColumns+1; j++)
        {
           my2DMaze[i][j] = new Room(j, i, i/myRows, j/myColumns);
+          
+          if (i == 3 && j == 3) { //last loop of making rooms
+            System.out.println("Randomizing Tom's location...");
+            randRow = tomObj.randomLocation();
+            randCol = tomObj.randomLocation();
+            System.out.println("Row=" + randRow + "Col=" + randCol);
+            
+            while (randRow == 3 && randCol == 3) { //ensure OmniTom not in exit
+              randRow = tomObj.randomLocation();
+              System.out.println("Row=" + randRow + "Col=" + randCol);
+            }
+            
+            my2DMaze[i][j] = new Room(randCol, randRow, i/myRows, j/myColumns);
+          }
+          
        }
     }
     
@@ -63,7 +85,29 @@ public class Maze {
 	      
 	      int move = p1.playerMove();
 	      
-	      if (!my2DMaze[p1.getY()][p1.getX()].doorLocked(move)) {
+	      if (my2DMaze[p1.getY()][p1.getX()] == my2DMaze[randRow][randCol]) {
+	        tomObj.tomIntroPrompt();
+	        
+	        if (tomObj.tomDoorStatus() == true) {
+	            System.out.println("Door is locked permenantly; try a different door!");
+	            mazeSolver solver = new mazeSolver(my2DMaze);
+	            stillPossible = solver.solveMaze();
+	            displayLockout(move);
+	          } else {
+	            System.out.println("Door is opened! Continue to next room!");
+	           p1.moveSuccess(move);
+	           //below is added
+	           my2DMaze[p1.getY()][p1.getX()].displayPlayerInRoom();
+	           displayMaze();
+	           my2DMaze[p1.getY()][p1.getX()].displayEmptyRoom();
+	           move = p1.playerMove();
+	           p1.moveSuccess(move);
+	           
+	          }
+	          my2DMaze[p1.getY()][p1.getX()].displayPlayerInRoom();
+	        
+	        
+	      } else if (!my2DMaze[p1.getY()][p1.getX()].doorLocked(move)) {
 	    	  
 	    	  Door dr = my2DMaze[p1.getY()][p1.getX()].cardinalDoors[move];
 	      
@@ -84,9 +128,7 @@ public class Maze {
 	      }
 	      my2DMaze[p1.getY()][p1.getX()].displayPlayerInRoom();
 	      
-	      }
-	      
-	      else {
+	      } else {
 	    	  System.out.println("The path is blocked.");
 	    	  my2DMaze[p1.getY()][p1.getX()].displayPlayerInRoom();
 	      }
