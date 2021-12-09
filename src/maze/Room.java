@@ -19,6 +19,7 @@ public class Room {
 	int xPos;
 	int yPos;
 	
+	
 	String ifPlayer = "[ ]";
 	
 	//Doors in the Room starting from North, East, South, and then West.

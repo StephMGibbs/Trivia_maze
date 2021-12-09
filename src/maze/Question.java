@@ -7,13 +7,41 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
- * @author stephg02
+ * @author stephg02, mtaesc
  *
  */
 public class Question {
 	// Question source: https://icebreakerideas.com/video-game-trivia/
 
-	public boolean correctAnswer;
+	private String myQuestion;
+	private boolean myTom;
+	private String myAnswer;
+	private boolean correctAnswer;
+	
+	
+	public Question(String theQuestion, boolean isTom, String theAnswer) {
+		this.myQuestion = theQuestion;
+		this.myTom =  isTom;
+		this.myAnswer = theAnswer;
+	}
+	
+	public boolean getCorrectAnswer() {
+		return correctAnswer;
+	}
+	
+	public String getQuestion() {
+		return myQuestion;
+	}
+	
+	public String getAnswer() {
+		return myAnswer;
+	}
+	
+	public boolean getTom() {
+		return myTom;
+	}
+	
+	//abstract void queryFromTable();
 
 	public boolean questionPromptMC(final Scanner theResponse) {
 		System.out.println(
@@ -38,10 +66,6 @@ public class Question {
 			System.out.println("Please enter the number of the answer.");
 		}
 		
-		return correctAnswer;
-	}
-
-	public boolean getAnswer() {
 		return correctAnswer;
 	}
 

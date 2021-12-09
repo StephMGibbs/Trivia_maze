@@ -17,7 +17,7 @@ public class Door {
   /** The door lock; false = open & true = closed. */
   public boolean myDoorLock;
   
-  private Question q;
+  private Question myQuestion;
   
   private String doorView;
   
@@ -27,13 +27,13 @@ public class Door {
    * @return the door status
    */
   
-  public Door() {
-	  q = new Question();
+  public Door(Question theQuestion) {
+	  this.myQuestion = theQuestion;
 	  doorView = "| |";
   }
   
-  public Door(boolean locked) {
-	  q = new Question();
+  public Door(Question theQuestion, boolean locked) {
+	  this.myQuestion = theQuestion;
 	  myDoorLock = locked;
 	  doorView = "|X|";
   }
@@ -55,7 +55,7 @@ public class Door {
     Scanner scnr = new Scanner(System.in);
     q.questionPromptMC(scnr);
     
-    myDoorStatus = q.getAnswer();
+    myDoorStatus = q.getCorrectAnswer();
     
   }
   
