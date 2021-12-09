@@ -1,5 +1,8 @@
 package maze;
 
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 public class MultipleChoiceQuestion extends Question {
 	
 	private final String myWrongAns1;
@@ -24,5 +27,6 @@ public class MultipleChoiceQuestion extends Question {
 	public String getMyWrongAns3() {
 		return myWrongAns3;
 	}
+	
 	
 }

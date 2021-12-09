@@ -15,26 +15,33 @@ public class Door {
   public boolean myDoorStatus;
   
   /** The door lock; false = open & true = closed. */
-  public boolean myDoorLock;
+  public boolean myDoorIsLocked;
   
   private Question myQuestion;
   
   private String doorView;
   
   /**
-   * Gets the door status after answering questions.
+   * Gets the door status after answering questions, instantiates question & door open.
    *
+   * @param theQuestion the the question
    * @return the door status
    */
   
-  public Door(Question theQuestion) {
-	  this.myQuestion = theQuestion;
+  public Door() { //Question theQuestion
+	  //this.myQuestion = theQuestion;
 	  doorView = "| |";
   }
   
-  public Door(Question theQuestion, boolean locked) {
-	  this.myQuestion = theQuestion;
-	  myDoorLock = locked;
+  /**
+   * Instantiates a new door; locks door closed (true), else open (false).
+   *
+   * @param theQuestion the the question
+   * @param locked the locked
+   */
+  public Door(boolean locked) { //Question theQuestion,
+	  //this.myQuestion = theQuestion;
+	  myDoorIsLocked = locked;
 	  doorView = "|X|";
   }
   
@@ -48,29 +55,38 @@ public class Door {
    * @return the door lock
    */
   public boolean getDoorLock() {
-    return myDoorLock;
+    return myDoorIsLocked;
   }
   
   public void openDoorQuestion() {
     Scanner scnr = new Scanner(System.in);
-    q.questionPromptMC(scnr);
+    //Test question stuff
+    //q.questionPromptMC(scnr);
+    //myDoorStatus = q.getCorrectAnswer();
     
-    myDoorStatus = q.getCorrectAnswer();
+    //SQL stuff
+    myQuestion.getQuestion();
+    String response = scnr.next();
+    if (response == myQuestion.getAnswer()) {
+      myQuestion.setCorrectAnswer(true);
+    }
     
+    myDoorStatus = myQuestion.getCorrectAnswer();
   }
   
   public void doorOpenOrLocked() {
     if (getDoorStatus() == true) {
       //System.out.println("Door is open!");
-      myDoorLock = false;
+      myDoorIsLocked = false;
     } else {
       //System.out.println("Door is closed!");
-      myDoorLock = true;
+      myDoorIsLocked = true;
     }
   }
   
-  public Question getQuestion() {
-	  return q;
-  }
+  
+//  public Question getQuestion() {
+//	  return q;
+//  }
   
 }

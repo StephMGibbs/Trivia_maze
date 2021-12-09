@@ -39,6 +39,8 @@ public class Maze {
 		// +2 for a buffer
 
 		makeMazeOfRooms();
+		
+		//Connects database & makes tables for different question types
 		createDataSource();
 		createTables();
 
@@ -62,7 +64,7 @@ public class Maze {
 				+ "CORRECTANS TEXT NOT NULL,"
 				+ "ANSWER2 TEXT NOT NULL,"
 				+ "ANSWER3 TEXT NOT NULL,"
-				+ "ANSWER4 TEXT NOT NULL";
+				+ "ANSWER4 TEXT NOT NULL)";
 		
 //		String queryTF = "CREATE TABLE IF NOT EXISTS trueFalse ("
 //				+ "QUESTION TEXT PRIMARY KEY,"
@@ -70,56 +72,84 @@ public class Maze {
 //				+ "CORRECTANS TEXT NOT NULL,"
 //				+ "FALSEANS TEXT NOT NULL";
 		
-		String queryToMC = "INSERT INTO multipleChoice (QUESTION, ISTOM,  CORRECTANS, ANSWER2, ANSWER3, ANSWER4) VALUES ('What's the first commercially successful video game?', False, 'n1.Pong', 'n2.Tank', 'n3.Spacewar!', 'n4.Tennis for Two') ";
-		
-//		String queryToTF = "INSERT INTO trueFalse (QUESTION, ISTOM, CORRECTANS, FALSEANS) VALUES ('Nintendo originally intended the PlayStation to be an add on to the SNES', 'False', 'True', 'False')";
 		
 		try ( Connection conn = questions.getConnection();
 				Statement stmt = conn.createStatement();) {
 			
-			int rv = stmt.executeUpdate(queryToMC);
-			System.out.println( "ExecuteUpdate() returned " + rv );
+			int rv = stmt.executeUpdate(queryMC);
+			System.out.println( "executeUpdate() returned " + rv );
 			
 //			rv = stmt.executeUpdate(queryToTF);
 //			System.out.println( "ExecuteUpdate() returned " + rv );
 //			
-			System.out.println( "Selecting all rows from test table" );
-	        queryMC = "SELECT * FROM multipleChoice";
-			
-			ResultSet rs = stmt.executeQuery(queryMC);
-			
-			while(rs.next()) {
-				String question = rs.getString("QUESTION");
-				boolean isTom = rs.getBoolean("ISTOM");
-				String correctAns = rs.getString("CORRECTANS");
-				String answer2 = rs.getString("ANSWER2");
-				String answer3 = rs.getString("ANSWER3");
-				String answer4 = rs.getString("ANSWER4");
-				
-				
-				Question multChoice = new MultipleChoiceQuestion(question, isTom, correctAns, answer2, answer3, answer4);
-				questionArray.add(multChoice);
-			}
-			
-//			System.out.println( "Selecting all rows from test table" );
-//	        queryMC = "SELECT * FROM trueFalse";
-//			
-//			rs = stmt.executeQuery(queryMC);
-//			
-//			while(rs.next()) {
-//				String question = rs.getString("QUESTION");
-//				boolean isTom = rs.getBoolean("ISTOM");
-//				String correctAns = rs.getString("CORRECTANS");
-//				String falseAns = rs.getString("FALSEANS");
-//				
-//				Question trueFalseQ = new TrueFalseQuestion(question, isTom, correctAns, falseAns);
-//				questionArray.add(trueFalseQ);
-//			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.exit(0);
 		}
+		
+	      String queryToMC = "INSERT INTO multipleChoice (QUESTION, ISTOM, CORRECTANS, ANSWER2, ANSWER3, ANSWER4) VALUES ('What's the first commercially successful video game?', false, 'n1.Pong', 'n2.Tank', 'n3.Spacewar!', 'n4.Tennis for Two') ";
+	        
+//	      String queryToTF = "INSERT INTO trueFalse (QUESTION, ISTOM, CORRECTANS, FALSEANS) VALUES ('Nintendo originally intended the PlayStation to be an add on to the SNES', false, true, false)";
+		
+	    try ( Connection conn = questions.getConnection();
+              Statement stmt = conn.createStatement(); ) {
+            int rv = stmt.executeUpdate(queryToMC);
+            System.out.println( "1st executeUpdate() returned " + rv );
+
+            //rv = stmt.executeUpdate(queryToTF);
+            //System.out.println( "2nd executeUpdate() returned " + rv );
+            
+        } catch ( SQLException e ) {
+            e.printStackTrace();
+            System.exit( 0 );
+        }
+	      
+	    
+	    
+		System.out.println( "Selecting all rows from test table" );
+        queryMC = "SELECT * FROM multipleChoice";
+        
+        
+        try ( Connection conn = questions.getConnection();
+            Statement stmt = conn.createStatement(); ) {
+          
+          ResultSet rs = stmt.executeQuery(queryMC);
+          
+          while(rs.next()) {
+              String question = rs.getString("QUESTION");
+              boolean isTom = rs.getBoolean("ISTOM");
+              String correctAns = rs.getString("CORRECTANS");
+              String answer2 = rs.getString("ANSWER2");
+              String answer3 = rs.getString("ANSWER3");
+              String answer4 = rs.getString("ANSWER4");
+              
+              
+              Question multChoice = new MultipleChoiceQuestion(question, isTom, correctAns, answer2, answer3, answer4);
+              questionArray.add(multChoice);
+          }
+          
+//        System.out.println( "Selecting all rows from test table" );
+//        queryTF = "SELECT * FROM trueFalse";
+//        
+//        rs = stmt.executeQuery(queryTF);
+//        
+//        while(rs.next()) {
+//            String question = rs.getString("QUESTION");
+//            boolean isTom = rs.getBoolean("ISTOM");
+//            String correctAns = rs.getString("CORRECTANS");
+//            String falseAns = rs.getString("FALSEANS");
+//            
+//            Question trueFalseQ = new TrueFalseQuestion(question, isTom, correctAns, falseAns);
+//            questionArray.add(trueFalseQ);
+//        }
+          
+          
+      } catch ( SQLException e ) {
+          e.printStackTrace();
+          System.exit( 0 );
+      }
+        
 	}
 
 	public int getRows() {

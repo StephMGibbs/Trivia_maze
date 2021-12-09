@@ -15,6 +15,7 @@ public class Room {
    - should look like: [ ]
    */
 	
+  
 	//Position of Room within Maze array
 	int xPos;
 	int yPos;
