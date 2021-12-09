@@ -46,7 +46,7 @@ private static final long serialVersionUID = 6579850749029358050L;
   }
   
   /**
-   * Gets the door lock; sees if closed or open.
+   * Gets the door lock; sees if closed (true) or open (false).
    *
    * @return the door lock
    */

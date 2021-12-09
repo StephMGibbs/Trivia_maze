@@ -21,7 +21,10 @@ public class Player implements Serializable {
 	 public final Scanner SCNR;
 	 private int myMoveX_axis;
 	 private int myMoveY_axis;
-	 Stack<Integer> backTracker;
+	 
+	 
+	 /** The back tracker; stack that holds every move made by player. */
+ 	Stack<Integer> backTracker;
   
 	 public Player() {
 	
@@ -33,7 +36,7 @@ public class Player implements Serializable {
   
 		 backTracker = new Stack<Integer>();
 		 
-		 backTracker.push(-1);
+		 backTracker.push(-1); //-1 is initial value, if reached then reached end of player move history
 	}
   
   public int getX() {
@@ -61,6 +64,11 @@ public class Player implements Serializable {
     
   }
   
+  /**
+   * Direction player moves added to backTracker stack & update x/y axis in direction to move.
+   *
+   * @param move the move
+   */
   public void moveSuccess(int move) {
 	  
 	 backTracker.push(move);
@@ -79,36 +87,6 @@ public class Player implements Serializable {
 	  			myMoveX_axis--;
 	  			break;
 	  }
-     /* if (playerInput.equalsIgnoreCase("up")) {
-        System.out.println("Moved up door.");
-        myMoveY_axis--;
-        moveMade = myMoveY_axis;
-        done = true;
-        
-      } else if (playerInput.equalsIgnoreCase("right")) {
-        System.out.println("Moved to right door.");
-        myMoveX_axis++;
-        moveMade = myMoveX_axis;
-        done = true;
-        
-      } else if (playerInput.equalsIgnoreCase("down")) {
-        System.out.println("Moved down door.");
-        myMoveY_axis++;
-        moveMade = myMoveY_axis;
-        done = true;
-        
-      } else if (playerInput.equalsIgnoreCase("left")) {
-        System.out.println("Moved to left door.");
-        myMoveX_axis--;
-        moveMade = myMoveX_axis;
-        done = true;
-        
-      } else {
-        System.out.println("Not valid direction; re-enter direction.");
-      }
-      System.out.println();
-    }
-  } */
   }
   public void moveUp() {
 	  

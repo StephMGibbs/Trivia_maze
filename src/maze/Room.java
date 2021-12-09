@@ -25,7 +25,7 @@ public class Room implements Serializable {
 	
 	String ifPlayer = "[ ]";
 	
-	//Doors in the Room starting from North, East, South, and then West.
+	/** Doors in the Room starting from North, East, South, and then West. */
 	Door[] cardinalDoors = {new Door(), new Door(), new Door(), new Door()};
 	
 	public Room(int x, int y, int xEdge, int yEdge) {

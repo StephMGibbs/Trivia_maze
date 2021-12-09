@@ -9,6 +9,34 @@ import java.util.Scanner;
  */
 public class Maze implements Serializable {
   
+  /*
+   TODO: fix maze solver, only focuses on columns 2-3 (ignores 1st column). 
+   EX: [v][o][x]
+       [ ][x][ ]  -> this is considered locking self out!
+       [ ][ ][ ]
+       
+       [v][ ][ ]
+       [v][o][x]  -> this is doesn't recognize that it should lock out.
+       [v][x][ ]
+       
+       [v][v][o]
+       [ ][x][x]  -> this is considered locking self out!
+       [ ][ ][ ]
+       
+       [v][o][x]
+       [v][x][ ]  -> this is doesn't recognize that it should lock out.
+       [x][ ][ ]
+       
+       [v][v][x]
+       [x][o][x]  -> this is doesn't recognize that it should lock out.
+       [ ][x][ ]
+       
+       [v][v][ ]
+       [ ][v][ ]  -> this is doesn't recognize that it should lock out.
+       [ ][o][x]
+   */
+  
+  
   /**
 	 * 
 	 */
@@ -59,7 +87,7 @@ public int myRows = 3;
   
   public void startMaze() {
 	  
-	  boolean stillPossible = true;
+	  boolean stillPossible = true; //boolean for if maze not blocked from reaching exit
 	  
 	  while (!(my2DMaze[myRows][myColumns].ifPlayer.equals("[o]")) && stillPossible) {
 	      
