@@ -7,27 +7,22 @@ import java.util.Scanner;
  * @author stephg02
  *
  */
-public class Maze implements Serializable {
+public class Maze implements Serializable { 
   
-  /**
-	 * 
-	 */
-	private static final long serialVersionUID = -4086095372506263454L;
+  private static final long serialVersionUID = -4086095372506263454L;
 
-public int myRows = 3;
+  private int myRows = 3;
   
-  public int myColumns = 3;
+  private int myColumns = 3;
   
-  public Room[][] my2DMaze;
+  private Room[][] my2DMaze;
   
-  private Player p1;
+  private Player myPlayer;
   
-  public int myRoomCount = 1;
-  
-  public final Scanner SCNR = new Scanner(System.in);
+  //private transient final Scanner SCNR = new Scanner(System.in);
   
   public Maze() {
-	  p1 = new Player();
+	  myPlayer = new Player();
 	  my2DMaze = new Room[myRows + 2][myColumns + 2]; // makes 2D array w/ rows and columns
 	    // +2 for a buffer
 	  
@@ -57,7 +52,7 @@ public int myRows = 3;
     my2DMaze[1][1].displayPlayerInRoom();
   }
   
-  public void startMaze() {
+  public String startMaze() {
 	  
 	  boolean stillPossible = true;
 	  
@@ -65,16 +60,22 @@ public int myRows = 3;
 	      
 	      displayMaze();
 	      
-	      my2DMaze[p1.getY()][p1.getX()].displayEmptyRoom();
+	      my2DMaze[myPlayer.getY()][myPlayer.getX()].displayEmptyRoom();
 	      
-	      int move = p1.playerMove();
+	      int move = myPlayer.playerMove();
 	      
-	      if (my2DMaze[p1.getY()][p1.getX()].cardinalDoors[move].getDoorStatus()) {
-	    	  p1.moveSuccess(move);
-	      }
-	      else if (!my2DMaze[p1.getY()][p1.getX()].doorLocked(move)) {
+	      if (move > 3) {
 	    	  
-	    	  Door dr = my2DMaze[p1.getY()][p1.getX()].cardinalDoors[move];
+	    	  my2DMaze[myPlayer.getY()][myPlayer.getX()].displayPlayerInRoom();
+	    	  return "save";
+	      }
+	      
+	      if (my2DMaze[myPlayer.getY()][myPlayer.getX()].cardinalDoors[move].getDoorStatus()) {
+	    	  myPlayer.moveSuccess(move);
+	      }
+	      else if (!my2DMaze[myPlayer.getY()][myPlayer.getX()].doorLocked(move)) {
+	    	  
+	    	  Door dr = my2DMaze[myPlayer.getY()][myPlayer.getX()].cardinalDoors[move];
 	      
 	    	  dr.openDoorQuestion();
 	    	  dr.doorOpenOrLocked();
@@ -89,7 +90,7 @@ public int myRows = 3;
 	        displayLockout(move);
 	      } else {
 	        System.out.println("Door is opened! Continue to next room!");
-	       p1.moveSuccess(move);
+	       myPlayer.moveSuccess(move);
 	      }
 	      
 	      }
@@ -98,18 +99,24 @@ public int myRows = 3;
 	    	  if (move < 4) System.out.println("The path is blocked.");
 	    	  if (move == 4) saveGame();
 	      }
-	      my2DMaze[p1.getY()][p1.getX()].displayPlayerInRoom();
+	      my2DMaze[myPlayer.getY()][myPlayer.getX()].displayPlayerInRoom();
 	    }
 	  if (stillPossible) {
 		  System.out.println("Reached end of the maze! Congrats");
+		  return "complete";
 	  }
 	  else {
 		  System.out.println("You have locked yourself from reaching the exit, good luck next time!");
+		  return "incomplete";
 	  }
 	  
   }
   
-  public boolean endMaze() {
+  public Player getMyPlayer() {
+	return myPlayer;
+}
+
+public boolean endMaze() {
 	  Scanner scanner = new Scanner(System.in);
 	  System.out.print("Would you like to play again? y/n ");
 	  String answer = scanner.next();
@@ -121,13 +128,13 @@ public int myRows = 3;
   
   public void displayLockout(int move) {
 	  switch (move) {
-	  	case 0: my2DMaze[p1.getY()-1][p1.getX()].displayClosedRoom();
+	  	case 0: my2DMaze[myPlayer.getY()-1][myPlayer.getX()].displayClosedRoom();
 	  		break;
-	  	case 1: my2DMaze[p1.getY()][p1.getX()+1].displayClosedRoom();
+	  	case 1: my2DMaze[myPlayer.getY()][myPlayer.getX()+1].displayClosedRoom();
 	  		break;
-	  	case 2: my2DMaze[p1.getY()+1][p1.getX()].displayClosedRoom();
+	  	case 2: my2DMaze[myPlayer.getY()+1][myPlayer.getX()].displayClosedRoom();
 	  		break;
-	  	case 3: my2DMaze[p1.getY()][p1.getX()-1].displayClosedRoom();
+	  	case 3: my2DMaze[myPlayer.getY()][myPlayer.getX()-1].displayClosedRoom();
 	  }
   }
   
@@ -172,13 +179,13 @@ public int myRows = 3;
 	  
 	  switch (move) {
 	  case 0: 
-		 return my2DMaze[p1.getY()-1][p1.getX()];
+		 return my2DMaze[myPlayer.getY()-1][myPlayer.getX()];
 	  case 1:
-		  return my2DMaze[p1.getY()][p1.getX()+1];
+		  return my2DMaze[myPlayer.getY()][myPlayer.getX()+1];
 	  case 2:
-		  return my2DMaze[p1.getY()+1][p1.getX()];
+		  return my2DMaze[myPlayer.getY()+1][myPlayer.getX()];
 	  case 3:
-		  return my2DMaze[p1.getY()][p1.getX()-1];
+		  return my2DMaze[myPlayer.getY()][myPlayer.getX()-1];
 	  }
 	  
 	  return adjacent;

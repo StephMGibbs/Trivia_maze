@@ -12,18 +12,19 @@ public class Serializer implements Serializable {
 	
 	private static final long serialVersionUID = -7982846020544436819L;
 	
-	static String filename = "Maze.ser";
+	private static final String filename = "Maze.ser";
 	
 	public static void serialize(Maze object) {
 		
         try {
-        	FileOutputStream file = new FileOutputStream(filename);
-			ObjectOutputStream output = new ObjectOutputStream(file);
+        	
+        	FileOutputStream outFile = new FileOutputStream(filename);
+			ObjectOutputStream output = new ObjectOutputStream(outFile);
 			
 			output.writeObject(object);
 			
 			output.close();
-			file.close();
+			outFile.close();
 			
 			
 			System.out.println("\nYour progress has been saved!");
@@ -55,6 +56,7 @@ public class Serializer implements Serializable {
 			e.printStackTrace();
 		}
 		
+		//restoration.getMyPlayer().scannerReset();
 		return restoration;
 		
 	}

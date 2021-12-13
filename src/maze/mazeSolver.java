@@ -7,13 +7,13 @@ public class mazeSolver implements Serializable {
 	
 	private static final long serialVersionUID = 5757286137364807706L;
 
-	Room[][] my2DMaze;
+	private Room[][] my2DMaze;
 	
-	Player testPlayer;
+	private Player testPlayer;
 	
-	ArrayList<Room> visitedRooms = new ArrayList<Room>();
+	private ArrayList<Room> visitedRooms = new ArrayList<Room>();
 	
-	public mazeSolver(Room[][] my2DMaze) {
+	public mazeSolver(final Room[][] my2DMaze) {
 		
 		this.my2DMaze = my2DMaze;
 		
@@ -42,6 +42,7 @@ public class mazeSolver implements Serializable {
 				testPlayer.moveSuccess(3);
 			}
 			else if (testPlayer.backTracker.peek() != -1) {
+				
 				int previousMove = testPlayer.backTracker.pop();
 				
 				switch(previousMove) {
@@ -70,12 +71,12 @@ public class mazeSolver implements Serializable {
 			}
 			
 			
-		} while (testPlayer.backTracker.peek() != -1);
+		} while (testPlayer.backTracker.size() != 0);
 		
 		return false;
 	}
 	
-	public boolean allowDoorAccess(int door) {
+	private boolean allowDoorAccess(int door) {
 		return (!my2DMaze[testPlayer.getY()][testPlayer.getX()].cardinalDoors[door].getDoorLock());
 	}
 	
