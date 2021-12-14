@@ -14,8 +14,11 @@ public class Question {
 	// Question source: https://icebreakerideas.com/video-game-trivia/
 
 	private String myQuestion;
+	
 	private boolean myTom;
+	
 	private String myAnswer;
+	
 	private boolean correctAnswer = false; //default false
 	
 	
@@ -66,6 +69,12 @@ public class Question {
 	}
 	
 	//abstract void queryFromTable();
+	
+	public void displayQuestion() {
+		System.out.println("Question: " + getQuestion());
+		System.out.println("Answer: " + getAnswer());
+		System.out.println("isTom Question: " + getTom() + "\n");
+	}
 
 	/**
 	 * Question prompt MC for test question.
