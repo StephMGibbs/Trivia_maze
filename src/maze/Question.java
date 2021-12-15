@@ -17,12 +17,12 @@ public class Question {
 	
 	private boolean myTom;
 	
-	private String myAnswer;
+	private int myAnswer;
 	
 	private boolean correctAnswer = false; //default false
 	
 	
-	public Question(String theQuestion, boolean isTom, String theAnswer) {
+	public Question(String theQuestion, boolean isTom, int theAnswer) {
 		this.myQuestion = theQuestion;
 		this.myTom =  isTom;
 		this.myAnswer = theAnswer;
@@ -55,7 +55,7 @@ public class Question {
 	 *
 	 * @return the answer
 	 */
-	public String getAnswer() {
+	public int getAnswer() {
 		return myAnswer;
 	}
 	
@@ -83,19 +83,20 @@ public class Question {
 	 * @return true, if successful
 	 */
 	public boolean questionPromptMC(final Scanner theResponse) {
-		System.out.println(
-				"What's the first commercially successful video game?: \n1.Pong \n2.Tank \n3.Spacewar! \n4.Tennis for Two \n");
+//		System.out.println(
+//				"What's the first commercially successful video game?: \n1.Pong \n2.Tank \n3.Spacewar! \n4.Tennis for Two \n");
+		System.out.println("Question: " + getQuestion());
 		boolean done = false;
 
 		//added try block. Will catch InputMismatchException when user enters the word answer instead of the answer number.
 		try {
 			while (done == false) {
-				int enter = theResponse.nextInt();
-				if (enter == 1) {
+				int input = theResponse.nextInt();
+				int answer = getAnswer();
+				if (input == answer) {
 					correctAnswer = true;
 					done = true;
-				} else if (enter == 2 || enter == 3 || enter == 4) {
-					//correctAnswer = false;
+				} else if (input != answer) {//TODO: FIXME 
 					done = true;
 				} else {
 					System.out.println("invalid response; try again.");

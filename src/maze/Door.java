@@ -67,7 +67,7 @@ public class Door {
     //SQL stuff
     myQuestion.getQuestion();
     String response = scnr.next();
-    if (response == myQuestion.getAnswer()) {
+    if (response == myQuestion.getAnswer()) { 
       myQuestion.setCorrectAnswer(true);
     }
     

@@ -1,26 +1,12 @@
 package maze;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Scanner;
-
-import org.sqlite.SQLiteDataSource;
 
 /**
  * @author stephg02
  *
  */
 public class Maze {
-	private ArrayList<Question> questionArray = new ArrayList<> (); 
-	private Queue<Question> questionQueue = new LinkedList<Question> ();
-	private SQLiteDataSource questions = null; 
-	
 	public int myRows = 3;
 
 	public int myColumns = 3;
