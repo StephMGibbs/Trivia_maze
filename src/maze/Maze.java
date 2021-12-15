@@ -6,8 +6,8 @@ import java.util.Scanner;
 /**
  * @author stephg02
  *
- */
-public class Maze implements Serializable { 
+ */ 
+public class Maze implements Serializable {  
   
   private static final long serialVersionUID = -4086095372506263454L;
 

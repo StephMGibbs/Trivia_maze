@@ -1,6 +1,6 @@
 package maze;
 
-public class MultipleChoice extends Question{
+public class MultipleChoice extends Question {
 	
 	private int myAltAns1;
 	
