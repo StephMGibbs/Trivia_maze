@@ -31,14 +31,14 @@ private static final long serialVersionUID = 6579850749029358050L;
    */
   
   public Door() {
-	  q = new Question();
-	  doorView = "| |";
+      q = new Question();
+      doorView = "| |";
   }
   
   public Door(boolean locked) {
-	  q = new Question();
-	  myDoorLock = locked;
-	  doorView = "|X|";
+      q = new Question();
+      myDoorLock = locked;
+      doorView = "|X|";
   }
   
   public boolean getDoorStatus() {
@@ -73,7 +73,7 @@ private static final long serialVersionUID = 6579850749029358050L;
   }
   
   public Question getQuestion() {
-	  return q;
+      return q;
   }
   
 }
