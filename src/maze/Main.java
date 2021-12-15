@@ -1,9 +1,6 @@
 /**
  * 
  */
-/**
- * 
- */
 package maze;
 
 import java.io.File;
